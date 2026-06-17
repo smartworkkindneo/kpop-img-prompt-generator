@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-POPダンス画像プロンプト生成</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+/* ==========================================================================
+   Base Styles & Variables
+   ========================================================================= */
+:root {
+    --bg-primary: #080b16;
+    --bg-secondary: rgba(15, 22, 42, 0.6);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-highlight: rgba(255, 255, 255, 0.15);
+    
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --accent-primary: #ef4444; /* Red 500 */
+    --accent-secondary: #b91c1c; /* Red 700 */
+    --accent-glow: rgba(239, 68, 68, 0.5);
+    
+    --success: #10b981; /* Emerald */
+    --danger: #ef4444; /* Red */
+    
+    --card-bg: rgba(17, 24, 39, 0.45);
+    --card-backdrop: blur(20px);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    
+    --font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Background Decorative Elements (Premium Glow)
+   ========================================================================= */
+.background-decor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.glow-sphere {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+}
+
+.sphere-1 {
+    top: -10%;
+    right: 10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #7f1d1d 0%, transparent 70%);
+}
+
+.sphere-2 {
+    bottom: 10%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 70%);
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================= */
+.app-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    gap: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--text-primary) 30%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    font-weight: 400;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+}
+
+/* ==========================================================================
+   Glassmorphism Cards
+   ========================================================================= */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: var(--card-backdrop);
+    -webkit-backdrop-filter: var(--card-backdrop);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.card-header-actions {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================= */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition-smooth);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+}
+
+.btn-glow {
+    position: relative;
+    box-shadow: 0 4px 20px 0 var(--accent-glow);
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px 0 rgba(239, 68, 68, 0.7);
+}
+
+.btn-glow:active {
+    transform: translateY(0);
+}
+
+.btn-large-run {
+    padding: 1.25rem 3.5rem;
+    font-size: 1.3rem;
+    border-radius: 16px;
+    letter-spacing: 0.05em;
+}
+
+.btn-large-copy {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    border: 1px solid var(--border-highlight);
+    padding: 1.1rem;
+    font-size: 1.1rem;
+    width: 100%;
+    margin-bottom: 0.75rem;
+    border-radius: 12px;
+}
+
+.btn-large-copy:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-large-copy:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ==========================================================================
+   Result Output Panel
+   ========================================================================= */
+.result-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.result-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.prompt-box-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.prompt-output {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    min-height: 100px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    font-family: inherit;
+    transition: var(--transition-smooth);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.info-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 10px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.85rem;
+    color: #a7f3d0;
+}
+
+.info-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    color: var(--success);
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Toast Notifications
+   ========================================================================= */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(16, 185, 129, 0.95);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    z-index: 1000;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    font-weight: 600;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.prompt-output.highlight {
+    animation: highlightFade 0.6s ease-out;
+}
+
+@keyframes highlightFade {
+    0% {
+        box-shadow: 0 0 0 2px var(--accent-primary);
+        background: rgba(239, 68, 68, 0.15);
+    }
+    100% {
+        box-shadow: 0 0 0 0px transparent;
+        background: rgba(0, 0, 0, 0.3);
+    }
+}
+
+footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+</style>
+</head>
+<body>
+    <div class="background-decor">
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <h1>K-POPダンス画像プロンプト生成</h1>
+            </div>
+            <p class="subtitle">ブログ記事の画像用プロンプトをランダムに自動合成します。</p>
+        </header>
+
+        <main class="grid-layout">
+            <section class="result-panel">
+                <div class="glass-card result-card">
+                    
+                    <div class="card-header-actions">
+                        <button id="run-btn" class="btn btn-primary btn-glow btn-large-run">
+                            <i data-lucide="play"></i>
+                            <span>プロンプト生成</span>
+                        </button>
+                    </div>
+
+                    <div class="prompt-box-wrapper" style="margin-top: 0.5rem;">
+                        <button class="btn btn-large-copy" id="copy-ja-btn" disabled>
+                            <i data-lucide="copy"></i> プロンプトコピー
+                        </button>
+                        <div class="prompt-output" id="output-ja">「プロンプト生成」ボタンをクリックすると、ここに組み合わせ構成が出力されます。</div>
+                    </div>
+
+                    <div class="info-banner" id="special-rules-banner" style="display: none;">
+                        <i data-lucide="info" class="info-icon"></i>
+                        <span id="special-rules-text"></span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 AI Prompt Composer. NAYUTAS Dance Lessons Custom.</p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">
+        <i data-lucide="check-circle" class="toast-icon"></i>
+        <span id="toast-message">コピーしました！</span>
+    </div>
+
+    <script>
+// ==========================================================================
+// Data Definition for Parameters (K-POPダンス完全準拠版)
+// ==========================================================================
+const parameterData = {
+    A: {
+        name: "男女・人数",
+        items: [
+            { ja: "10代女性 (生徒ソロ)", en: "10s Japanese female, teenager girl student, solo dancer" },
+            { ja: "20代女性 (生徒ソロ)", en: "20s Japanese female, young woman student, solo dancer" },
+            { ja: "10代男性 (生徒ソロ)", en: "10s Japanese male, teenager boy student, solo dancer" },
+            { ja: "20代男性 (生徒ソロ)", en: "20s Japanese male, young man student, solo dancer" },
+            { ja: "複数 (20代女性生徒と、後ろで見守る講師の2人構図)", en: "multiple people, a 20s Japanese female dance student in front and her instructor watching behind" },
+            { ja: "複数 (20代男性生徒と、後ろで見守る講師の2人構図)", en: "multiple people, a 20s Japanese male dance student in front and her instructor watching behind" }
+        ]
+    },
+    B: {
+        name: "顔・体型の特徴",
+        items: [
+            { ja: "シャープな顎ライン（すっきりした知的なキツネ顔）＋背が高い体系", en: "sharp defined jawline, sleek fox-like facial features, tall and model-like height physique" },
+            { ja: "たぬき顔（親しみやすく太く柔らかい眉毛と丸い目をした、たぬき顔）＋標準的な体型", en: "friendly puppy-like features, soft thick eyebrows, round warm eyes, average healthy body proportion" },
+            { ja: "バランスの整った輪郭（綺麗に整った猫のような小顔）＋やせ型体系", en: "perfectly balanced symmetric small face, attractive cat-like facial structure, slender and graceful lean physique" },
+            { ja: "エネルギッシュで立体的な顔立ち（はっきりとした目鼻立ち）＋筋肉質体系", en: "energetic and well-chiseled features, distinct facial dimension, fit and athletic toned physique with muscle definition" }
+        ]
+    },
+    C: {
+        name: "コーデ・スタイル種類",
+        items: [
+            { ja: "タンクトップスタイル（タンクトップにワイドなパンツとブーツを合わせたスタイル）", en: "casual outfit featuring a fitted tank top, wide-leg pants, and stylish boots" },
+            { ja: "ストリートスタイル（ニットやキャップといった帽子とオーバーサイズのトップスとオーバーサイズのパンツを合わせたストリートスタイル）", en: "korean street style with a knit beanie or baseball cap, oversized top, and oversized pants" },
+            { ja: "スポーツスタイル（オーバーサイズのトップス（Tシャツやジャケット）にタイトなパンツと革新的なスニーカーを合わせたスタイル）", en: "smart office casual outfit featuring an oversized top such as a t-shirt or jacket, paired with slim tight pants and innovative modern sneakers" },
+            { ja: "ダンススタイル（タンクトップにタイトなジャケット。下はタイトなパンツを合わせ、筋肉や肉体美が強調されたスタイル）", en: "professional dance apparel with a fitted tank top layered with a tight jacket, skinny tech pants, emphasizing a well-toned athletic physique and muscular body lines" }
+        ]
+    },
+    D: {
+        name: "服の色",
+        items: [
+            { ja: "白とベージュの服の色", en: "white and beige color palette apparel" },
+            { ja: "モノトーンの服の色", en: "monochrome or grayscale color palette clothing" },
+            { ja: "レインボーカラーの服の色", en: "vibrant rainbow color palette clothing" },
+            { ja: "原色ミックスの服の色", en: "vivid primary colors mixed palette clothing" },
+            { ja: "暖色系のと寒色系を合わせた服の色", en: "a mixed outfit combining warm and cool color tones" }
+        ]
+    },
+    E: {
+        name: "髪型",
+        items: [
+            { ja: "ショートヘア", en: "short hairstyle" },
+            { ja: "ロングヘア", en: "long flowing hairstyle" },
+            { ja: "ポニーテール", en: "high ponytail hairstyle, dynamic movement" },
+            { ja: "センターパート", en: "center-parted hairstyle" },
+            { ja: "ゆる巻き", en: "soft loosely curled wavy hair" },
+            { ja: "無造作ヘア", en: "effortless messy textured hair style" }
+        ]
+    },
+    F: {
+        name: "表情",
+        items: [
+            { ja: "自然な笑顔", en: "natural gentle smile" },
+            { ja: "真剣な表情", en: "serious intense expression, highly determined look" },
+            { ja: "爆笑", en: "bursting big laughing expression, full of joy" },
+            { ja: "少し緊張したハニカミ", en: "slightly nervous shy smile" },
+            { ja: "集中している表情", en: "deeply focused contemplative expression" },
+            { ja: "感動している表情", en: "deeply moved emotional expression" }
+        ]
+    },
+    G: {
+        name: "視線",
+        items: [
+            { ja: "振り返る視線", en: "looking back over the shoulder away from the camera" },
+            { ja: "横を見る視線", en: "gazing sideways intently" },
+            { ja: "下を見る視線", en: "downcast gaze looking downwards carefully at feet" },
+            { ja: "遠くを見る視線", en: "looking into the far distance thoughtfully" }
+        ]
+    },
+    H: {
+        name: "ポーズ",
+        items: [
+            { ja: "ダンスしながらジャンプポーズ（ダンスのリズムに乗りながら空中にふわりと跳び上がった、一瞬の躍動感を捉えたポーズ、頭の上に多めの十分な余白を確保する）", en: "jumping mid-air while dancing, capturing a dynamic floating moment, ensuring ample headspace above" },
+            { ja: "ダンスしながら腰を落としてかがんでいるダイナミックなポーズ（ダンスのモーションで重心を低く構えた、キレのある力強いポーズ）", en: "dynamic low-crouch while dancing, sharp and powerful low center of gravity stance" },
+            { ja: "ダンスしながらアイドルのキメポーズ（ダンスの最高潮で指先までピンと伸ばし、首の角度を少し傾けた、K-POPのサビであるようなキャッチーで洗練されたキメポーズ）", en: "sharp K-pop idol signature point-dance pose while dancing, delicate hand gesture with fingers extended, slightly tilted head angle" },
+            { ja: "ダンスしながらステップを踏み出すポーズ（ダンスのリズムに乗りながら、今まさに足を一歩踏み出した瞬間のモーション）", en: "stepping forward dynamically while dancing on beat, mid-action trendy dance footwork" },
+            { ja: "ダンスしながら鏡の前でのフォームチェック（大きな鏡に向かってダンス中に両腕のラインや全体のシルエットを美しく、真剣に最終確認しているポーズ）", en: "checking dance posture in front of a large mirror while dancing, focusing deeply on arm lines and body silhouette" }
+        ]
+    },
+    I: {
+        name: "室内の雰囲気や内装",
+        items: [
+            { ja: "モダンで広々としたダンススタジオ（一面に広がる大きな鏡、フローリングの床）", en: "in a modern spacious dance studio, wall-to-wall large mirror, polished hardwood flooring" },
+            { ja: "鮮やかに輝く近未来的なレインボーカラーのLEDライン照明が走る、コンクリート調のダンス練習室", en: "in a stylish dance training room, concrete textured walls, vibrant and multi-colored rainbow neon LED linear lighting that glows intensely" },
+            { ja: "温かみのある間接照明と、壁面にウッド素材があしらわれた綺麗なスタジオ", en: "in a beautiful clean studio, warm indirect mood lighting, aesthetic wooden wall accents" }
+        ]
+    },
+    J: {
+        name: "昼と夜・全体の色合い",
+        items: [
+            { ja: "昼（大きな窓からたっぷりと自然光が差し込む明るい色合い）", en: "daytime, bright natural lighting streaming through windows, soft overall color tones" },
+            { ja: "夜（サイバーパンクを彷彿とさせるネオン光線とホログラム光、間接照明が鮮やかに映えるより暗くスタイリッシュな夜のドラマチックな空間）", en: "deep dark night atmosphere with a futuristic cyberpunk aesthetic, neon light beams and ambient holographic glow, vividly popping contrasts with deep moody overall colors" }
+        ]
+    },
+    K: {
+        name: "撮影構図とカメラアングル",
+        items: [
+            { ja: "正面カメラ構図（目線の高さ / アイレベル）", en: "straight-on composition, captured at eye-level height" },
+            { ja: "横からカメラ構図（ダンスの美しい体のラインやシルエットが際立つアングル）", en: "side profile composition, highlighting beautiful dance alignment and silhouette" },
+            { ja: "俯瞰カメラ構図（少し上から見下ろすお洒落な配置、頭の上に多めの十分な余白を確保する）", en: "high-angle view composition, looking down slightly from above" },
+            { ja: "ローアングルカメラ構図（下から見上げる存在感のあるアングル、頭の上に多めの十分な余白を確保する）", en: "dynamic low-angle composition, looking up from a lower position" },
+            { ja: "斜め構図（立体感とダンススタジオの奥行きが美しく表現されるアングル）", en: "three-quarter diagonal composition, adding aesthetic depth to the studio space" }
+        ]
+    },
+    L: {
+        name: "レンズと写真の質感",
+        items: [
+            { ja: "スマホ撮影風カメラ構図（練習の日常を切り取った親しみやすい質感）", en: "casual smartphone snapshot photography style, natural textured look" },
+            { ja: "スナップ写真風カメラ構図（ありのままの自然体なダンス練習風景）", en: "candid snapshot portrait style, lifelike practice room photography" },
+            { ja: "広角レンズ（スタジオ全体の奥行きや臨場感が伝わる質感）", en: "shot on a wide-angle lens, emphasizing dance room depth and environment atmosphere" },
+            { ja: "50mmレンズ（歪みがなく人物が最も自然に引き立つ王道質感）", en: "shot on a premium 50mm prime lens, natural human scale and proportion" },
+            { ja: "背景ボケレンズ（背景を滑らかにぼかし人物を引き立てるフォーカス）", en: "shallow depth of field with creamy background bokeh, sharp dancer focus" },
+            { ja: "シネマティックレンズ（ミュージックビデオのワンシーンのようなドラマチックな階調）", en: "cinematic lens style, dynamic music video lighting grading, movie-like aesthetic" },
+            { ja: "ドキュメント風レンズ（リアリティのある本気の練習風景を捉えた質感）", en: "documentary-style photography, authentic realism texturing" }
+        ]
+    }
+};
+
+// ==========================================================================
+// Application State & DOM Elements
+// ==========================================================================
+const runBtn = document.getElementById('run-btn');
+const outputJa = document.getElementById('output-ja');
+const copyJaBtn = document.getElementById('copy-ja-btn');
+const specialRulesBanner = document.getElementById('special-rules-banner');
+const specialRulesText = document.getElementById('special-rules-text');
+const toastElement = document.getElementById('toast');
+const toastMessage = document.getElementById('toast-message');
+
+// ==========================================================================
+// Logic Functions
+// ==========================================================================
+function generateComposition() {
+    const choices = {};
+    Object.keys(parameterData).forEach(key => {
+        const items = parameterData[key].items;
+        const selectedIndex = Math.floor(Math.random() * items.length);
+        choices[key] = {
+            ja: items[selectedIndex].ja,
+            en: items[selectedIndex].en,
+            index: selectedIndex + 1
+        };
+    });
+    return choices;
+}
+
+function buildPrompts(choices) {
+    const isMultiple = choices.A.ja.includes("複数");
+    let promptJa = "";
+
+    const elementsJaSingle = [
+        `対象・人数: ${choices.A.ja}`,
+        `顔・体型の特徴: ${choices.B.ja}`,
+        `服装スタイル: ${choices.C.ja}`,
+        `服の色: ${choices.D.ja}`,
+        `髪型: ${choices.E.ja}`,
+        `表情: ${choices.F.ja}`,
+        `視線: ${choices.G.ja}`,
+        `ポーズ: ${choices.H.ja}`,
+        `スタジオ内装: ${choices.I.ja}`,
+        `時間帯・色合い: ${choices.J.ja}`,
+        `カメラ構図: ${choices.K.ja}`,
+        `写真の質感: ${choices.L.ja}`
+    ];
+
+    const fixedRules = [
+        "このブログの記事に合うサムネイルを生成（※厳密に守る）",
+        "日本人（※厳密に守る）",
+        "写真生成（※厳密に守る）",
+        "文字は無し（※厳密に守る）",
+        "K-POPダンス（※厳密に守る）",
+        "縦横比率はスクエア画像（※厳密に守る）",
+        "カメラ目線NG（※厳密に守る）",
+        "頭の上と左右に十分な余白をとる（※厳密に守る）"
+    ];
+
+    if (!isMultiple) {
+        promptJa = `【ランダム要素構成】\n- ${elementsJaSingle.join('\n- ')}\n\n【固定プロンプト】\n・${fixedRules.join('\n・')}`;
+    } else {
+        const instructorJaDesc = `30代女性または男性のダンス講師（シンプルなTシャツ and トラックパンツ、笑顔で優しくレッスンを見守り指導する姿、主役の生徒を引き立てる配置、目線は生徒に向けている）`;
+
+        const elementsJaMultiple = [
+            `手前の生徒(主役): ${choices.A.ja.replace("複数 (", "").replace(")", "")}`,
+            `生徒の顔・体型特徴: ${choices.B.ja}`,
+            `生徒の服装・色: ${choices.C.ja}（${choices.D.ja}）`,
+            `生徒の髪型: ${choices.E.ja}`,
+            `生徒の表情・視線: ${choices.F.ja} / ${choices.G.ja}`,
+            `生徒のダンスポーズ: ${choices.H.ja}`,
+            `奥の講師(自動): ${instructorJaDesc}`,
+            `スタジオ内装: ${choices.I.ja}`,
+            `時間帯・色合い: ${choices.J.ja}`,
+            `カメラ構図: ${choices.K.ja}`,
+            `写真の質感: ${choices.L.ja}（師弟の関係性が伝わるピント調整）`
+        ];
+
+        promptJa = `【ランダム要素構成】\n- ${elementsJaMultiple.join('\n- ')}\n\n【固定プロンプト】\n・${fixedRules.join('\n・')}\n・ダンスレッスン風景2人構図`;
+    }
+
+    return {
+        ja: promptJa,
+        isMultiple: isMultiple
+    };
+}
+
+function showToast(message) {
+    toastMessage.textContent = message;
+    toastElement.classList.add('show');
+    setTimeout(() => {
+        toastElement.classList.remove('show');
+    }, 2500);
+}
+
+async function copyToClipboard(text, successMessage) {
+    try {
+        await navigator.clipboard.writeText(text);
+        showToast(successMessage);
+    } catch (err) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        showToast(successMessage);
+        document.body.removeChild(textArea);
+    }
+}
+
+function handleExecution() {
+    const choices = generateComposition();
+    const prompts = buildPrompts(choices);
+    
+    outputJa.textContent = prompts.ja;
+    outputJa.classList.add('highlight');
+    setTimeout(() => {
+        outputJa.classList.remove('highlight');
+    }, 600);
+    
+    if (prompts.isMultiple) {
+        specialRulesBanner.style.display = 'flex';
+        specialRulesText.textContent = "「複数人」ルール適用：奥に並ぶダンス講師の描写（笑顔で見守る・トラックパンツ着用・カメラ目線なし）が自動調整されています。";
+    } else {
+        specialRulesBanner.style.display = 'none';
+    }
+    
+    copyJaBtn.removeAttribute('disabled');
+    showToast('新しい条件でプロンプトを生成しました！');
+}
+
+runBtn.addEventListener('click', handleExecution);
+copyJaBtn.addEventListener('click', () => {
+    copyToClipboard(outputJa.textContent, 'プロンプトをコピーしました！');
+});
+
+lucide.createIcons();
+    </script>
+</body>
+</html>
