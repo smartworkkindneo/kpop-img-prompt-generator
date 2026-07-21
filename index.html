@@ -343,7 +343,7 @@ footer {
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
-</style>
+    </style>
 </head>
 <body>
     <div class="background-decor">
@@ -412,7 +412,8 @@ const parameterData = {
             { ja: "高校生女子 (生徒ソロ)", en: "high school Japanese female, high school girl student, solo dancer" },
             { ja: "大学生女子 (生徒ソロ)", en: "university Japanese female, college woman student, solo dancer" },
             { ja: "複数 (小学生女性生徒と、後ろで見守る20代の男性講師の2人構図)", en: "multiple people, an elementary school Japanese female dance student in front and her 20s male instructor watching behind" },
-            { ja: "複数 (小学生男性生徒と、後ろで見守る20代の女性講師の2人構図)", en: "multiple people, an elementary school Japanese male dance student in front and his 20s female instructor watching behind" }        ]
+            { ja: "複数 (小学生男性生徒と、後ろで見守る20代の女性講師の2人構図)", en: "multiple people, an elementary school Japanese male dance student in front and his 20s female instructor watching behind" }
+        ]
     },
     B: {
         name: "顔・体型の特徴",
@@ -423,35 +424,31 @@ const parameterData = {
             { ja: "エネルギッシュで立体的な顔立ち（はっきりとした目鼻立ち）＋筋肉質体系", en: "energetic and well-chiseled features, distinct facial dimension, fit and athletic toned physique with muscle definition" }
         ]
     },
-C: {
-    name: "コーデ・スタイル種類",
-    items: [
-        { 
-            ja: "タンクトップスタイル（タンクトップにワイドなストリート系カーゴパンツとティンバーランド風のヌバックブーツを合わせたスタイル。※ロゴやメーカー名は無し）", 
-            en: "casual outfit featuring a fitted tank top, wide-leg streetwear cargo pants, and Timberland-style nubuck boots (no visible logos or brand names)" 
-        },
-        { 
-            ja: "ストリートスタイル（ニットやキャップといった帽子とオーバーサイズのトップスとオーバーサイズのパンツを合わせたストリートスタイル。※ロゴやメーカー名は無し）", 
-            en: "street style with a knit beanie or baseball cap, oversized top, and oversized pants (no visible logos or brand names)" 
-        },
-        { 
-            ja: "スポーツスタイル（オーバーサイズのトップス（Tシャツやジャケット）にタイトなパンツと革新的なスニーカーを合わせたスタイル。※ロゴやメーカー名は無し）", 
-            en: "sporty casual outfit featuring an oversized top such as a t-shirt or jacket, paired with slim tight pants and innovative modern sneakers (no visible logos or brand names)" 
-        },
-        { 
-            ja: "ダンススタイル（おへそが見えるショート丈トップス。下はタイトなスポーツレギンスを合わせ、頭にはサングラスを着用。足元はカラフルな蛍光色のハイテクスニーカー。筋肉や肉体美が強調されたスタイル。※ロゴやメーカー名は無し）", 
-            en: "dance style outfit featuring a fitted cropped top showing the midriff, tight athletic leggings, sunglasses worn on the head, and colorful neon high-tech sneakers, emphasizing a well-toned athletic physique and muscular body lines (no visible logos or brand names)" 
-        }
-    ]
-},
-D: {
+    C: {
+        name: "コーデ・スタイル種類",
+        items: [
+            { 
+                ja: "タンクトップスタイル（タンクトップにワイドなストリート系カーゴパンツとティンバーランド風のヌバックブーツを合わせたスタイル。※ロゴやメーカー名は無し）", 
+                en: "casual outfit featuring a fitted tank top, wide-leg streetwear cargo pants, and Timberland-style nubuck boots (no visible logos or brand names)" 
+            },
+            { 
+                ja: "ストリートスタイル（ニットやキャップといった帽子とオーバーサイズのトップスとオーバーサイズのパンツを合わせたストリートスタイル。※ロゴやメーカー名は無し）", 
+                en: "street style with a knit beanie or baseball cap, oversized top, and oversized pants (no visible logos or brand names)" 
+            },
+            { 
+                ja: "スポーツスタイル（オーバーサイズのトップス（Tシャツやジャケット）にタイトなパンツと革新的なスニーカーを合わせたスタイル。※ロゴやメーカー名は無し）", 
+                en: "sporty casual outfit featuring an oversized top such as a t-shirt or jacket, paired with slim tight pants and innovative modern sneakers (no visible logos or brand names)" 
+            },
+            { 
+                ja: "ダンススタイル（おへそが見えるショート丈トップス。下はタイトなスポーツレギンスを合わせ、頭にはサングラスを着用。足元はカラフルな蛍光色のハイテクスニーカー。筋肉や肉体美が強調されたスタイル。※ロゴやメーカー名は無し）", 
+                en: "dance style outfit featuring a fitted cropped top showing the midriff, tight athletic leggings, sunglasses worn on the head, and colorful neon high-tech sneakers, emphasizing a well-toned athletic physique and muscular body lines (no visible logos or brand names)",
+                gender: "female"
+            }
+        ]
+    },
+    D: {
         name: "服の色",
         items: [
-            // { ja: "白とベージュの服の色", en: "white and beige color palette apparel" },
-            // { ja: "モノトーンの服の色", en: "monochrome or grayscale color palette clothing" },
-            // { ja: "レインボーカラーの服の色", en: "vibrant rainbow color palette clothing" },
-            // { ja: "原色ミックスの服の色", en: "vivid primary colors mixed palette clothing" },
-            // { ja: "暖色系のと寒色系を合わせた服の色", en: "a mixed outfit combining warm and cool color tones" }
             { ja: "上半身は白系統の色。下半身はチャコールグレーの色。", en: "white upper body and charcoal gray lower body outfit" },
             { ja: "上半身は暖色系の色。下半身は寒色系の色。", en: "warm tone upper body and cool tone lower body outfit" },
             { ja: "上半身は明るい色。下半身はアースカラー。", en: "bright upper body and earth tone lower body outfit" }
@@ -465,19 +462,14 @@ D: {
             { ja: "ロングヘア", en: "long flowing hairstyle" },
             { ja: "ポニーテール", en: "high ponytail hairstyle, dynamic movement" },
             { ja: "センターパート", en: "center-parted hairstyle" },
-            { ja: "ゆる巻き", en: "soft loosely curled wavy hair" },
-            // { ja: "無造作ヘア", en: "effortless messy textured hair style" }
+            { ja: "ゆる巻き", en: "soft loosely curled wavy hair" }
         ]
     },
     F: {
         name: "表情",
         items: [
             { ja: "自然な笑顔", en: "natural gentle smile" },
-            { ja: "真剣な表情", en: "serious intense expression, highly determined look" },
-            // { ja: "爆笑", en: "bursting big laughing expression, full of joy" },
-            // { ja: "少し緊張したハニカミ", en: "slightly nervous shy smile" },
-            // { ja: "集中している表情", en: "deeply focused contemplative expression" },
-            // { ja: "感動している表情", en: "deeply moved emotional expression" }
+            { ja: "真剣な表情", en: "serious intense expression, highly determined look" }
         ]
     },
     G: {
@@ -485,25 +477,38 @@ D: {
         items: [
             { ja: "振り返る視線", en: "looking back over the shoulder away from the camera" },
             { ja: "横を見る視線", en: "gazing sideways intently" },
-            // { ja: "下を見る視線", en: "downcast gaze looking downwards carefully at feet" },
             { ja: "遠くを見る視線", en: "looking into the far distance thoughtfully" }
         ]
     },
     H: {
         name: "ポーズ",
         items: [
-            { ja: "ダンスしながらジャンプポーズ（ダンスのリズムに乗りながらダイナミックにジャンプ。決めポーズの瞬間を捉える。頭の上に多めの十分な余白を確保する）", en: "dynamically jumping mid-air while dancing, capturing a powerful strike-a-pose moment, ensuring ample headspace above" },
-            { ja: "ダンスしながら腰を落としてかがんでいるダイナミックなポーズ（ダンスのモーションで重心を低く構えた、キレのある力強いポーズ）", en: "dynamic low-crouch while dancing, sharp and powerful low center of gravity stance" },
-            { ja: "ダンスしながらアイドルのキメポーズ（ダンスの最高潮で指先までピンと伸ばし、首の角度を少し傾けた、K-POPのサビであるようなキャッチーで洗練されたキメポーズ）", en: "sharp K-pop idol signature point-dance pose while dancing, delicate hand gesture with fingers extended, slightly tilted head angle" },
-            // { ja: "ダンスしながらステップを踏み出すポーズ（ダンスのリズムに乗りながら、今まさに足を一歩踏み出した瞬間のモーション）", en: "stepping forward dynamically while dancing on beat, mid-action trendy dance footwork" },
-            { ja: "ダンスしながら鏡の前でのフォームチェック（大きな鏡に向かってダンス中に両腕のラインや全体のシルエットを美しく、真剣に最終確認しているポーズ）", en: "checking dance posture in front of a large mirror while dancing, focusing deeply on arm lines and body silhouette" }
+            { 
+                ja: "お尻を突き出し後ろを振り向くセクシー系決めポーズ（お尻を突き出して後ろを振り返るセクシーなキメポーズ。体のラインを強調した魅惑的なスタイル）", 
+                en: "sexy signature pose pushing out hips and looking back over the shoulder, emphasizing body curves in a sensual stance",
+                gender: "female"
+            },
+            { 
+                ja: "ヒップホップダンスのカッコイイ系決めポーズ（重心を低く構えたストリート感あふれるヒップホップダンスのキレのあるクールなキメポーズ）", 
+                en: "cool hip-hop dance signature pose, sharp and stylish street-style stance with a low center of gravity",
+                gender: "both"
+            },
+            { 
+                ja: "アイドルダンスのかわいい系決めポーズ（首を少し傾け指先までキュートに見せる、アイドルダンスのキャッチーで愛らしいキメポーズ）", 
+                en: "cute idol dance signature pose, catchy and adorable stance with a slightly tilted head and charming hand gestures",
+                gender: "female"
+            },
+            { 
+                ja: "マイケルジャクソン風の決めポーズ（つま先立ちで片手を高く掲げ、ハットのつばに手を添えるようなマイケル・ジャクソン風のキレのあるダイナミックな決めポーズ）", 
+                en: "iconic Michael Jackson style signature pose, standing on tiptoes with one arm raised high and touching the hat brim, sharp dynamic posture",
+                gender: "male"
+            }
         ]
     },
     I: {
         name: "室内の雰囲気や内装",
         items: [
             { ja: "モダンで広々としたダンススタジオ（一面に広がる大きな鏡、フローリングの床）", en: "in a modern spacious dance studio, wall-to-wall large mirror, polished hardwood flooring" },
-            // { ja: "鮮やかに輝く近未来的なレインボーカラーのLEDライン照明が走る、コンクリート調のダンス練習室", en: "in a stylish dance training room, concrete textured walls, vibrant and multi-colored rainbow neon LED linear lighting that glows intensely" },
             { ja: "温かみのある間接照明と、壁面にウッド素材があしらわれた綺麗なスタジオ", en: "in a beautiful clean studio, warm indirect mood lighting, aesthetic wooden wall accents" }
         ]
     },
@@ -511,12 +516,12 @@ D: {
         name: "昼と夜・全体の色合い",
         items: [
             { ja: "昼（大きな窓からたっぷりと自然光が差し込む明るい色合い）", en: "daytime, bright natural lighting streaming through windows, soft overall color tones" },
-            { ja: "窓の外には、高層ビル群が織りなすきらびやかな夜景が広がる。サイバーパンクを彷彿とさせるネオン光線とホログラム光、間接照明が鮮やかに映えるより暗くスタイリッシュな夜のドラマチックな空間", en: "A dynamic night scape unfolds outside the window, with a sprawling futuristic cyberpunk city. Neon light beams and ambient holographic glow, vividly popping contrasts with deep moody overall colors in a stylish interior." }        ]
+            { ja: "窓の外には、高層ビル群が織りなすきらびやかな夜景が広がる。サイバーパンクを彷彿とさせるネオン光線とホログラム光、間接照明が鮮やかに映えるより暗くスタイリッシュな夜のドラマチックな空間", en: "A dynamic night scape unfolds outside the window, with a sprawling futuristic cyberpunk city. Neon light beams and ambient holographic glow, vividly popping contrasts with deep moody overall colors in a stylish interior." }
+        ]
     },
     K: {
         name: "撮影構図とカメラアングル",
         items: [
-            // { ja: "正面カメラ構図（目線の高さ / アイレベル）", en: "straight-on composition, captured at eye-level height" },
             { ja: "横からカメラ構図（ダンスの美しい体のラインやシルエットが際立つアングル）", en: "side profile composition, highlighting beautiful dance alignment and silhouette" },
             { ja: "俯瞰カメラ構図（少し上から見下ろすお洒落な配置、頭の上に多めの十分な余白を確保する）", en: "high-angle view composition, looking down slightly from above" },
             { ja: "ローアングルカメラ構図（下から見上げる存在感のあるアングル、頭の上に多めの十分な余白を確保する）", en: "dynamic low-angle composition, looking up from a lower position" },
@@ -526,13 +531,9 @@ D: {
     L: {
         name: "レンズと写真の質感",
         items: [
-            // { ja: "スマホ撮影風カメラ構図（練習の日常を切り取った親しみやすい質感）", en: "casual smartphone snapshot photography style, natural textured look" },
-            // { ja: "スナップ写真風カメラ構図（ありのままの自然体なダンス練習風景）", en: "candid snapshot portrait style, lifelike practice room photography" },
             { ja: "広角レンズ（スタジオ全体の奥行きや臨場感が伝わる質感）", en: "shot on a wide-angle lens, emphasizing dance room depth and environment atmosphere" },
-            // { ja: "50mmレンズ（歪みがなく人物が最も自然に引き立つ王道質感）", en: "shot on a premium 50mm prime lens, natural human scale and proportion" },
             { ja: "背景ボケレンズ（背景を滑らかにぼかし人物を引き立てるフォーカス）", en: "shallow depth of field with creamy background bokeh, sharp dancer focus" },
-            // { ja: "シネマティックレンズ（ミュージックビデオのワンシーンのようなドラマチックな階調）", en: "cinematic lens style, dynamic music video lighting grading, movie-like aesthetic" },
-            { ja: "ドキュメント風レンズ（リアリティのある本気の練習風景を捉えた質感）", en: "documentary-style photography, authentic realism texturing" }
+            // { ja: "ドキュメント風レンズ（リアリティのある本気の練習風景を捉えた質感）", en: "documentary-style photography, authentic realism texturing" }
         ]
     }
 };
@@ -553,15 +554,42 @@ const toastMessage = document.getElementById('toast-message');
 // ==========================================================================
 function generateComposition() {
     const choices = {};
+
+    // 1. まず A (男女・人数) をランダム選定
+    const aItems = parameterData.A.items;
+    const selectedAIndex = Math.floor(Math.random() * aItems.length);
+    choices.A = {
+        ja: aItems[selectedAIndex].ja,
+        en: aItems[selectedAIndex].en,
+        index: selectedAIndex + 1
+    };
+
+    // 生徒が女子/女性かどうか判定
+    const isFemaleStudent = choices.A.ja.includes("女子") || choices.A.ja.includes("女性生徒");
+
+    // 2. 他のパラメータの抽選
     Object.keys(parameterData).forEach(key => {
-        const items = parameterData[key].items;
-        const selectedIndex = Math.floor(Math.random() * items.length);
+        if (key === 'A') return;
+
+        // 性別制限（gender）がある要素を自動フィルタリング
+        const availableItems = parameterData[key].items.filter(item => {
+            const targetGender = item.gender || 'both';
+            if (targetGender === 'both') return true;
+            if (isFemaleStudent && targetGender === 'female') return true;
+            if (!isFemaleStudent && targetGender === 'male') return true;
+            return false;
+        });
+
+        const selectedIndex = Math.floor(Math.random() * availableItems.length);
+        const selectedItem = availableItems[selectedIndex];
+
         choices[key] = {
-            ja: items[selectedIndex].ja,
-            en: items[selectedIndex].en,
-            index: selectedIndex + 1
+            ja: selectedItem.ja,
+            en: selectedItem.en,
+            index: parameterData[key].items.indexOf(selectedItem) + 1
         };
     });
+
     return choices;
 }
 
